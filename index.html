@@ -641,7 +641,7 @@ function submitQuiz() {
   clearInterval(timerInterval);
   var modal = document.getElementById('modal');
   var score = calculateScore(); // Your score calculation logic here
-  var remarks = score >= 1 ? 'Pass' : 'Fail';  // Example remarks based on score
+  var remarks = score >= 35 ? 'Pass' : 'Fail';  // Example remarks based on score
   document.getElementById('score').textContent = score;
   document.getElementById('remarks').textContent = remarks;
   modal.style.display = "flex";
@@ -650,7 +650,7 @@ function submitQuiz() {
 function timeUpSubmit() {
   var modal = document.getElementById('modaltimeup');
   var score = calculateScore(); // Calculate score when time is up
-  var remarks = score >= 1 ? 'Pass' : 'Fail';  // Example remarks based on score
+  var remarks = score >= 35 ? 'Pass' : 'Fail';  // Example remarks based on score
   document.getElementById('scoretimeup').textContent = score; // Display score in the modaltimeup modal
   document.getElementById('remarkstimeup').textContent = remarks; // Display remarks in the modaltimeup modal
   modal.style.display = "flex";
