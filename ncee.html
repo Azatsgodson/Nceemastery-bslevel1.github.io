@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Responsive Blog Card</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+<style>
+  @import url('https://fonts.googleapis.com/css?family=Heebo:400,700|Open+Sans:400,700');
+        *{
+      -webkit-tap-highlight-color: rgba(0,0,0,0)!important;
+      -webkit-focus-ring-color: rgba(0,0,0,0)!important;
+           -webkit-tap-highlight-color: transparent !Important;
+             -webkit-touch-callout: none;
+      -webkit-user-select: none;
+         -webkit-user-modify: read-only;
+      outline: none! important;
+    }
+
+:root {
+  --color: #3c3163;
+  --transition-time: 0.5s;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: 'Open Sans';
+  background: #fafafa;
+}
+
+a {
+  color: inherit;
+}
+
+.cards-wrapper {
+  display: grid;
+  justify-content: center;
+  align-items: center;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: 4rem;
+  padding: 4rem;
+  margin: 0 auto;
+  width: max-content;
+}
+
+.card {
+  font-family: 'Heebo';
+  --bg-filter-opacity: 0.5;
+  background-image: linear-gradient(rgba(0,0,0,var(--bg-filter-opacity)),rgba(0,0,0,var(--bg-filter-opacity))), var(--bg-img);
+  height: 20em;
+  width: 15em;
+  font-size: 1.5em;
+  color: white;
+  border-radius: 2em;
+  padding: 1em;
+  /*margin: 2em;*/
+  display: flex;
+  align-items: flex-end;
+  background-size: cover;
+  background-position: center;
+  box-shadow: 0 0 5em -1em black;
+  transition: all, var(--transition-time);
+  position: relative;
+  overflow: hidden;
+  border: 10px solid #ccc;
+  text-decoration: none;
+}
+
+.card:hover {
+  transform: rotate(0);
+}
+
+.card h1 {
+  margin: 0;
+  font-size: 1.5em;
+  line-height: 1.2em;
+}
+
+.card p {
+  font-size: 0.75em;
+  font-family: 'Open Sans';
+  margin-top: 0.5em;
+  line-height: 2em;
+}
+
+.card .tags {
+  display: flex;
+}
+
+.card .tags .tag {
+  font-size: 0.75em;
+  background: rgba(255,255,255,0.5);
+  border-radius: 0.3rem;
+  padding: 0 0.5em;
+  margin-right: 0.5em;
+  line-height: 1.5em;
+  transition: all, var(--transition-time);
+}
+
+.card:hover .tags .tag {
+  background: var(--color);
+  color: white;
+}
+
+.card .date {
+  position: absolute;
+  top: 0;
+  right: 0;
+  font-size: 0.75em;
+  padding: 1em;
+  line-height: 1em;
+  opacity: .8;
+}
+
+.card:before, .card:after {
+  content: '';
+  transform: scale(0);
+  transform-origin: top left;
+  border-radius: 50%;
+  position: absolute;
+  left: -50%;
+  top: -50%;
+  z-index: -5;
+  transition: all, var(--transition-time);
+  transition-timing-function: ease-in-out;
+}
+
+.card:before {
+  background: #ddd;
+  width: 250%;
+  height: 250%;
+}
+
+.card:after {
+  background: white;
+  width: 200%;
+  height: 200%;
+}
+
+.card:hover {
+  color: var(--color);
+}
+
+.card:hover:before, .card:hover:after {
+  transform: scale(1);
+}
+
+.card-grid-space .num {
+  font-size: 3em;
+  margin-bottom: 1.2rem;
+  margin-left: 1rem;
+}
+
+.info {
+  font-size: 1.2em;
+  display: flex;
+  padding: 1em 3em;
+  height: 3em;
+}
+
+.info img {
+  height: 3em;
+  margin-right: 0.5em;
+}
+
+.info h1 {
+  font-size: 1em;
+  font-weight: normal;
+}
+
+/* MEDIA QUERIES */
+@media screen and (max-width: 1285px) {
+  .cards-wrapper {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .cards-wrapper {
+    grid-template-columns: 1fr;
+  }
+  .info {
+    justify-content: center;
+  }
+  .card-grid-space .num {
+    margin-left: 0;
+    text-align: center;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .cards-wrapper {
+    padding: 4rem 2rem;
+  }
+  .card {
+    max-width: calc(100vw - 4rem);
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .info {
+    display: block;
+    text-align: center;
+  }
+  .info h1 {
+    margin: 0;
+  }
+}
+.hidden{
+  display: none; 
+}
+</style>
+<style>
+  .menu {
+    position: relative;
+    background-color: rgba(255, 255, 255, 0.5);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    padding: 10px;
+    cursor: pointer;
+    Width: auto; 
+  }
+
+  .menu ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    display: none;
+  }
+
+  .menu ul li {
+    padding: 5px 15px;
+  }
+
+  .overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+  }
+
+  .password-modal {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 50px;
+    text-align: center;
+    z-index: 999;
+  }
+.toggle-img{
+  height: 5%;
+  width: 5%;
+}
+.password-menu{
+  background-color: #007bff;
+  color: #fff;
+  font-weight: 700;
+  text-align: center; 
+  margin-left: 20px;
+  margin-right: 20px;
+  margin-top: 20px;
+  border: 2px solid #007bff;
+  border-radius: 20px;
+}
+.password-img{
+  height: 50%;
+  width: 50%;
+  border-radius: 20px;
+  margin-bottom: 10px;
+}
+input{
+  border-radius: 20px;
+  text-align: center;
+  color: black;
+  border: 2px solid #0d0898;
+}
+input:hover{
+  border-radius: 20px;
+  text-align: center;
+  color: black;
+  border: 5px solid darkgreen;
+  background-color: #fefefe;
+}
+    .checkmark {
+        font-size: 18px;
+        color: #00b894;
+        margin-right: 10px;
+    }
+
+.card-topic{
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  list-style-type: none;
+  padding: 0;
+  width: 100%;
+  font-size: 12px;
+  font-weight: ;
+}
+
+.sub-btn{
+  position: relative;
+  left: 30%;
+  background: #00b894;
+  border: 2px solid #ececec;
+  border-radius: 20px;
+  color: #fff;
+  font-size: 15px;
+  font-weight: 700;
+  width: 50%;
+  height: 50%;
+}
+.sub-info{
+  margin-bottom: 2px;
+  background: var(--color);
+  color: #fff; 
+  Width: 30%; 
+  height: auto; 
+  border-radius: 10px;
+  text-align: center; 
+  font-weight: 700;
+}
+</style>
+  </head>
+  <body>
+<div class="menu">
+  <image src="Menu.png" class="toggle-img">
+  <ul>
+    <button class="password-menu"><li data-link="ncee.html" data-password="ncee123">NCEE</li></button>
+    <button class="password-menu"><li data-link="jamb.html" data-password="jamb123">JAMB</li></button>
+    <button class="password-menu"><li data-link="sat.html" data-password="sat123">SAT</li></button>
+   <button class="password-menu"><li data-link="nabteb.html" data-password="nabteb123">NABTEB</li></button>
+    <button class="password-menu"><li data-link="neet.html" data-password="neet123">NEET</li></button>
+  </ul>
+</div>
+
+<div class="overlay">
+  <div class="password-modal">
+    <image class="password-img"src="password.png"></image>
+    <input type="password" id="passwordInput" placeholder="Enter Password">
+  </div>
+</div>
+
+<section class="cards-wrapper">
+  <div class="card-grid-space">
+    <a class="card"  style="--bg-img: url(Maths.png)">
+      <div>
+        <h1>Mathematics</h1>
+        <h2 class="subheading hidden"></h2>
+        <div class="date">NCEE</div>
+        <div class="topics hidden">
+                 <p class="sub-info hidden">Topics</p>
+          <ul class="card-topic"><li><span class="checkmark">√</span>Numeration</li><li><span class="checkmark">√</span>Place value</li><li><span class="checkmark">√</span>Addition</li><li><span class="checkmark">√</span>Subtraction</li><li><span class="checkmark">√</span>Multiplication</li><li><span class="checkmark">√</span>Division</li><li><span class="checkmark">√</span>LCM & HCF</li><li><span class="checkmark">√</span>FractIons</li><li><span class="checkmark">√</span>Ratio</li><li><span class="checkmark">√</span>Proportion</li><li><span class="checkmark">√</span>Decimals</li><li><span class="checkmark">√</span>Percentages</li><li><span class="checkmark">√</span>Money</li><li><span class="checkmark">√</span>Order of Op </li><li><span class="checkmark">√</span>Indices</li><li><span class="checkmark">√</span>Algebra</li><li><span class="checkmark">√</span>Geometry</li><li><span class="checkmark">√</span>Pythagoras </li><li><span class="checkmark">√</span>Roots</li><li><span class="checkmark">√</span>Metric units</li><li><span class="checkmark">√</span>Statistics</li><li><span class="checkmark">√</span>Angles</li></ul></div>
+        <div id="card-popup-btn1"class="sub-btn-proceed hidden"><button class="sub-btn">proceed</button></div>
+        <div class="tags">
+          <div class="tag">Quizzes</div>
+        </div>
+      </div>
+    </a>
+  </div>
+  <div class="card-grid-space">
+    <a class="card"  style="--bg-img: url(Maths1.png)">
+      <div>
+        <h1>Quantitative Reasoning</h1>
+            <h2 class="subheading hidden">Quantitative</h2>
+        <div class="date">NCEE</div>
+        <div class="topics hidden">                 <p class="sub-info hidden">Topics</p> 
+        <ul class="card-topic"><li><span class="checkmark">√</span>Addition</li><li><span class="checkmark">√</span>Subtraction</li><li><span class="checkmark">√</span>Multiplication</li><li><span class="checkmark">√</span>Division</li><li><span class="checkmark">√</span>Mixed Op</li><li><span class="checkmark">√</span>Square roots</li><li><span class="checkmark">√</span>Cube roots</li><li><span class="checkmark">√</span>Sequence</li><li><span class="checkmark">√</span>Factorial</li></ul></div>
+          <div id="card-popup-btn2"class="sub-btn-proceed hidden"><button class="sub-btn">proceed</button></div>
+        <div class="tags">
+          <div class="tag">Quizzes</div>
+        </div>
+      </div>
+    </a>
+  </div>
+  <div class="card-grid-space">
+    <a class="card"  style="--bg-img: url(Eng2.png)">
+      <div>
+        <h1>English language</h1>
+       <h2 class="subheading hidden"></h2>
+        <div class="date">NCEE</div>
+        <div class="topics hidden">                 <p class="sub-info hidden">Topics</p> 
+        <ul class="card-topic"><li><span class="checkmark">√</span>Comprehension</li><li><span class="checkmark">√</span>Vocabulary</li><li><span class="checkmark">√</span>Writing Skill</li><li><span class="checkmark">√</span>Spelling</li><li><span class="checkmark">√</span>Grammar</li><li><span class="checkmark">√</span>Part of speech</li><li><span class="checkmark">√</span>Lexis & Structure</li><li><span class="checkmark">√</span>Stress Pattern</li></ul></div>
+        <div id="card-popup-btn3"class="sub-btn-proceed hidden"><button class="sub-btn">proceed</button></div>
+        <div class="tags">
+          <div class="tag">Quizzes</div>
+        </div>
+      </div>
+    </a>
+  </div>
+    <div class="card-grid-space">
+    <a class="card"  style="--bg-img: url(Verb.png)">
+      <div>
+        <h1>Verbal Aptitude</h1>
+    <h2 class="subheading hidden"></h2>
+        <div class="date">NCEE</div>
+        <div class="topics hidden">                <p class="sub-info hidden">Topics</p> 
+        <ul class="card-topic"><li><span class="checkmark">√</span>Synonyms</li><li><span class="checkmark">√</span>Antonyms</li><li><span class="checkmark">√</span>Analogies</li><li><span class="checkmark">√</span>Collocation</li><li><span class="checkmark">√</span>Homonyms</li><li><span class="checkmark">√</span>Alphabet Coding</li><li><span class="checkmark">√</span>Word relation</li><li><span class="checkmark">√</span>Riddles</li><li><span class="checkmark">√</span>Categorization</li><li><span class="checkmark">√</span>Sentence</li><li><span class="checkmark">√</span>Odd Word out</li><li><span class="checkmark">√</span>Sounds Relation</li></ul></div>
+        <div id="card-popup-btn4"class="sub-btn-proceed hidden"><button class="sub-btn">proceed</button></div>
+        <div class="tags">
+          <div class="tag">Quizzes</div>
+        </div>
+      </div>
+    </a>
+  </div>
+    <div class="card-grid-space">
+    <a class="card"  style="--bg-img: url(Bs2.png)">
+      <div>
+        <h1>Basic Science</h1>
+      <h2 class="subheading hidden"></h2>
+        <div class="date">NCEE</div>
+        <div class="topics hidden">                 <p class="sub-info hidden">Topics</p>
+        <ul class="card-topic"><li><span class="checkmark">√</span>Living Things</li><li><span class="checkmark">√</span>Plants</li><li><span class="checkmark">√</span>Animals</li><li><span class="checkmark">√</span>Human Body</li><li><span class="checkmark">√</span>Matter</li><li><span class="checkmark">√</span>Sound & light</li><li><span class="checkmark">√</span>Solar System</li><li><span class="checkmark">√</span>Weather</li><li><span class="checkmark">√</span>Climate</li><li><span class="checkmark">√</span>Force</li><li><span class="checkmark">√</span>Motion</li><li><span class="checkmark">√</span>Electricity</li><li><span class="checkmark">√</span>Magnetism</li><li><span class="checkmark">√</span>Health</li>
+        <li><span class="checkmark">√</span>Environment</li><li><span class="checkmark">√</span>Simple machines</li><li><span class="checkmark">√</span>Rocks</li><li><span class="checkmark">√</span>Minerals</li><li><span class="checkmark">√</span>Ecosystem</li><li><span class="checkmark">√</span>Food chain</li><li><span class="checkmark">√</span>Resources</li><li><span class="checkmark">√</span>Technology</li></ul></div>
+        <div id="card-popup-btn5"class="sub-btn-proceed hidden"><button class="sub-btn">proceed</button></div>     
+        <div class="tags">
+          <div class="tag">Quizzes</div>
+        </div>
+      </div>
+    </a>
+  </div>
+    <div class="card-grid-space">
+    <a class="card"  style="--bg-img: url(Sos1.png)">
+      <div>
+        <h1>Social Studies</h1>
+       <h2 class="subheading hidden"></h2>
+        <div class="date">NCEE</div>
+        <div class="topics hidden">                <p class="sub-info hidden">Topics</p>  
+        <ul class="card-topic"><li><span class="checkmark">√</span>National symbols</li><li><span class="checkmark">√</span>N-Georgraphy</li><li><span class="checkmark">√</span>N-History</li><li><span class="checkmark">√</span>Cultural Heritage</li><li><span class="checkmark">√</span>Political System</li><li><span class="checkmark">√</span>Economy</li><li><span class="checkmark">√</span>Citizenship</li><li><span class="checkmark">√</span>N-Diversity</li><li><span class="checkmark">√</span>EducatIon</li><li><span class="checkmark">√</span>Health</li><li><span class="checkmark">√</span>Environment</li><li><span class="checkmark">√</span>Religion</li><li><span class="checkmark">√</span>Laws</li><li><span class="checkmark">√</span>Achievement </li><li><span class="checkmark">√</span>Rulers</li><li><span class="checkmark">√</span>N-Challenges</li><li><span class="checkmark">√</span>Current Afairs</li><li><span class="checkmark">√</span>National unity</li></ul></div>
+        <div id="card-popup-btn6"class="sub-btn-proceed hidden"><button class="sub-btn">proceed</button></div>
+        <div class="tags">
+          <div class="tag">Quizzes</div>
+        </div>
+      </div>
+    </a>
+  </div>
+    <div class="card-grid-space">
+    <a class="card"  style="--bg-img: url(Civic.png)">
+      <div>
+        <h1>Civic Education</h1>
+      <h2 class="subheading hidden"></h2>
+        <div class="date">NCEE</div>
+        <div class="topics hidden">
+                  <p class="sub-info hidden">Topics</p>
+                    <ul class="card-topic"><li><span class="checkmark">√</span>Intro</li><li><span class="checkmark">√</span>Citizenship</li><li><span class="checkmark">√</span>Obligations</li><li><span class="checkmark">√</span>Democracy</li><li><span class="checkmark">√</span>Rule of Law</li><li><span class="checkmark">√</span>Government</li><li><span class="checkmark">√</span>Election</li><li><span class="checkmark">√</span>Human Rights</li><li><span class="checkmark">√</span>Public Service</li><li><span class="checkmark">√</span>Conservation</li><li><span class="checkmark">√</span>Diversity</li><li><span class="checkmark">√</span>Conflict</li><li><span class="checkmark">√</span>Media literacy</li><li><span class="checkmark">√</span>Consumers Right</li><li><span class="checkmark">√</span>Finance</li><li><span class="checkmark">√</span>Social Justice </li></ul></div>
+        <div id="card-popup-btn7"class="sub-btn-proceed hidden"><button class="sub-btn">proceed</button></div> 
+        <div class="tags">
+          <div class="tag">Quizzes</div>
+        </div>
+      </div>
+    </a>
+  </div>
+  <div class="card-grid-space">
+    <a class="card"  style="--bg-img: url(Voc3.png)">
+      <div>
+        <h1>Vocational Studies</h1>
+      <h2 class="subheading hidden"></h2>
+        <div class="date">NCEE</div>
+        <div class="topics hidden"> 
+                <p class="sub-info hidden">Topics</p>
+        <ul class="card-topic"><li><span class="checkmark">√</span>Intro</li><li><span class="checkmark">√</span>Vocational path</li><li><span class="checkmark">√</span>Capentry</li><li><span class="checkmark">√</span>Sewing</li><li><span class="checkmark">√</span>Plumbing</li><li><span class="checkmark">√</span>Electric work</li><li><span class="checkmark">√</span>Farming</li><li><span class="checkmark">√</span>Cooking</li><li><span class="checkmark">√</span>Automotive</li><li><span class="checkmark">√</span>Hairdressing</li><li><span class="checkmark">√</span>Mansory</li><li><span class="checkmark">√</span>Equiptment</li><li><span class="checkmark">√</span>Safety</li><li><span class="checkmark">√</span>Ethics</li><li><span class="checkmark">√</span>Entrepreneurship</li><li><span class="checkmark">√</span>Computer</li><li><span class="checkmark">√</span>Time</li><li><span class="checkmark">√</span>Teamwork</li></ul></div>
+        <div id="card-popup-btn8"class="sub-btn-proceed hidden"><button class="sub-btn">proceed</button></div> 
+        <div class="tags">
+          <div class="tag">Quizzes</div>
+        </div>
+      </div>
+    </a>
+  </div>
+  <div class="card-grid-space">
+    <a class="card"  style="--bg-img: url(Computer.png)">
+      <div>
+        <h1>Computer Science</h1>
+     <h2 class="subheading hidden"></h2>  
+        <div class="date">NCEE</div>
+        <div class="topics hidden"> 
+        <p class="sub-info hidden">Topics</p>
+        <ul class="card-topic"><li><span class="checkmark">√</span>Intro</li><li><span class="checkmark">√</span>Hardware</li><li><span class="checkmark">√</span>Software</li><li><span class="checkmark">√</span>OS</li><li><span class="checkmark">√</span>Network</li><li><span class="checkmark">√</span>Internet</li><li><span class="checkmark">√</span>Coding</li><li><span class="checkmark">√</span>Algorithms</li><li><span class="checkmark">√</span>Multimedia</li><li><span class="checkmark">√</span>Cybersecurity</li><li><span class="checkmark">√</span>Word processing</li><li><span class="checkmark">√</span>Spreadsheet</li><li><span class="checkmark">√</span>History</li><li><span class="checkmark">√</span>Ethics</li><li><span class="checkmark">√</span>Robotics</li><li><span class="checkmark">√</span>AI</li></ul></div>
+        <div id="card-popup-btn9"class="sub-btn-proceed hidden"><button class="sub-btn">proceed</button></div>
+        <div class="tags">
+          <div class="tag">Quizzes</div>
+        </div>
+      </div>
+    </a>
+  </div>
+  <div class="card-grid-space">
+        <a class="card"  style="--bg-img: url(Crs.png)">
+      <div>
+        <h1>CRS</h1>
+       <h2 class="subheading hidden"></h2>
+        <div class="date">NCEE</div>
+        <div class="topics hidden">
+                  <p class="sub-info hidden" style="width: 50%;">Topics</p>
+                   <ul class="card-topic"><li><span class="checkmark">√</span>The Bible</li><li><span class="checkmark">√</span>Creation</li><li><span class="checkmark">√</span>Jesus Christ</li><li><span class="checkmark">√</span>Parables</li><li><span class="checkmark">√</span>commandments</li><li><span class="checkmark">√</span>Beatitude</li><li><span class="checkmark">√</span>Sacrament</li><li><span class="checkmark">√</span>Lord's prayer</li><li><span class="checkmark">√</span>Miracles of jesus</li><li><span class="checkmark">√</span>Birth of jesus</li><li><span class="checkmark">√</span>Ministry of jesus</li><li><span class="checkmark">√</span>Death of jesus</li><li><span class="checkmark">√</span>Resurrection</li><li><span class="checkmark">√</span>Church</li><li><span class="checkmark">√</span>Apostles</li><li><span class="checkmark">√</span>Saints</li><li><span class="checkmark">√</span>Morals & value</li><li><span class="checkmark">√</span>Prayers</li>
+                   <li><span class="checkmark">√</span>Worship</li><li><span class="checkmark">√</span>Forgiveness</li><li><span class="checkmark">√</span>Envangelism</li><li><span class="checkmark">√</span>Holy Ghost</li>
+                   </ul></div>
+          <p class="sub-info hidden"></p>
+        <div id="card-popup-btn10"class="sub-btn-proceed hidden"><button class="sub-btn">proceed</button></div>
+        <div class="tags">
+          <div class="tag">Quizzes</div>
+        </div>
+      </div>
+    </a>
+  </div>
+</section>
+<script>
+  const cards = document.querySelectorAll('.card');
+
+  cards.forEach(card => {
+    card.addEventListener('click', () => {
+      const topics = card.querySelector('.topics');
+      const subInfo = card.querySelector('.sub-info');
+      const btnProceed = card.querySelector('.sub-btn-proceed');
+      const subHeading= card.querySelector('.subheading');
+      const  date= card.querySelector('.date');
+      const tag= card.querySelector('.tag');
+      
+      if(topics.classList.contains('hidden')) {
+        topics.classList.remove('hidden');
+        subInfo.classList.remove('hidden');
+        btnProceed.classList.remove('hidden');
+        subHeading.classList.add('hidden');
+        date.classList.add('hidden');
+        tag.classList.add('hidden');
+      } else {
+        topics.classList.add('hidden');
+        subInfo.classList.add('hidden');
+        btnProceed.classList.add('hidden');
+        subHeading.classList.add('hidden');
+        date.classList.remove('hidden');
+        tag.classList.remove('hidden');
+      }
+    });
+  });
+</script>
+<script>
+  const menu = document.querySelector('.menu');
+  const menuList = document.querySelector('.menu ul');
+  const overlay = document.querySelector('.overlay');
+  const modal = document.querySelector('.password-modal');
+  const passwordInput = document.getElementById('passwordInput');
+
+  menu.addEventListener('click', function(e) {
+    menuList.style.display = menuList.style.display === 'block' ? 'none' : 'block';
+  });
+
+  document.addEventListener('click', function(event) {
+    const isClickInsideMenu = menu.contains(event.target);
+    if (!isClickInsideMenu) {
+      menuList.style.display = 'none';
+    }
+  });
+
+  menuList.addEventListener('click', function(e) {
+    if (e.target.tagName === "LI") {
+      const menuItem = e.target;
+      const link = menuItem.getAttribute('data-link');
+      const password = menuItem.getAttribute('data-password');
+      overlay.style.display = 'flex';
+
+      passwordInput.focus();
+
+      passwordInput.addEventListener('keyup', function(event) {
+        if (event.key === 'Enter') {
+          const inputPassword = passwordInput.value;
+
+          if (inputPassword === password) {
+            showNotification('Access Granted √', 'green');
+            setTimeout(() => {
+              window.location.href = link;
+            }, 3000);
+
+          } else {
+            showNotification('Access Denied ×', 'darkred');
+          }
+
+          overlay.style.display = 'none';
+          passwordInput.value = '';
+        }
+      });
+    }
+  });
+
+  function showNotification(message, color) {
+    const notification = document.createElement('div');
+    notification.style.position = 'fixed';
+    notification.style.top = '20px';
+    notification.style.left = '50%';
+    notification.style.transform = 'translateX(-50%)';
+    notification.style.padding = '10px 20px';
+    notification.style.backgroundColor = color;
+    notification.style.color = '#fff';
+    notification.style.borderRadius = '5px';
+    notification.textContent = message;
+    document.body.appendChild(notification);
+
+    setTimeout(() => {
+      notification.remove();
+    }, 3000);
+  }
+</script>
+<script>
+    let cardButtons = document.querySelectorAll('.card');
+
+    cardButtons.forEach((card, index) => {
+        card.addEventListener('click', () => {
+            let button = document.getElementById(`card-popup-btn${index + 1}`);
+            button.classList.toggle('block');
+        });
+    });
+
+    document.getElementById('card-popup-btn1').addEventListener('click', () => {
+        window.location.href = 'index1.html';
+    });
+
+    document.getElementById('card-popup-btn2').addEventListener('click', () => {
+        window.location.href = 'index2.html';
+    });
+
+    document.getElementById('card-popup-btn3').addEventListener('click', () => {
+        window.location.href = 'index3.html';
+    });
+
+    document.getElementById('card-popup-btn4').addEventListener('click', () => {
+        window.location.href = 'index4.html';
+    });
+
+    document.getElementById('card-popup-btn5').addEventListener('click', () => {
+        window.location.href = 'index5.html';
+    });
+
+    document.getElementById('card-popup-btn6').addEventListener('click', () => {
+        window.location.href = 'index6.html';
+    });
+
+    document.getElementById('card-popup-btn7').addEventListener('click', () => {
+        window.location.href = 'index7.html';
+    });
+
+    document.getElementById('card-popup-btn8').addEventListener('click', () => {
+        window.location.href = 'index8.html';
+    });
+
+    document.getElementById('card-popup-btn9').addEventListener('click', () => {
+        window.location.href = 'index9.html';
+    });
+
+    document.getElementById('card-popup-btn10').addEventListener('click', () => {
+        window.location.href = 'index10.html';
+    });
+</script>
+  </body>
+</html>
+
+
+
+
+
