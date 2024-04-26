@@ -172,22 +172,21 @@ animation: bounce 2s infinite;
      text-align: center;
    }
   
-input {
-    border: none;
-    background-color: transparent;
-    box-shadow: inset 5px 5px 10px #fff,
-                inset -5px -5px 10px #ececec;
+.userInput {
+    margin: 10px;
     padding: 10px;
-    border-radius: 10px;
     width: 200px;
-    font-size: 16px;
-    outline: none;
+    border-radius: 15px;
+    border: none;
+    text-align: center;
+    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.1);
 }
 
-input:focus {
-    box-shadow:  3px 3px 6px #bcbcbc,
-                 -3px -3px 6px #ffffff;
+input:focus,
+input:hover {
+    outline: none !important;
 }
+
 
 </style>
 <style>
