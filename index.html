@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Neumorphic SignUp/Login Form</title>
+<style>
+* {
+  box-sizing: border-box;
+}
+      *{
+      -webkit-tap-highlight-color: rgba(0,0,0,0)!important;
+      -webkit-focus-ring-color: rgba(0,0,0,0)!important;
+           -webkit-tap-highlight-color: transparent !Important;
+             -webkit-touch-callout: none;
+      -webkit-user-select: none;
+         -webkit-user-modify: read-only;
+      outline: none! important;
+    }
+body {
+  font-family: Arial, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  background-color: #f9f9f9;
+  margin: 0;
+}
+
+.container {
+  width: 100%;
+  height: 100%;
+  background-color: #f9f9f9;
+  border-radius: 20px;
+  box-shadow: 5px 5px 15px #d0d0d0, -5px -5px 15px #ffffff;
+  padding: 20px;
+}
+
+.toggle-buttons {
+  display: flex;
+  justify-content: space-around;
+}
+
+.toggle-buttons button {
+  background-color: #f9f9f9;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+.toggle-buttons button.active {
+  background-color: #d0d0d0;
+  color:#3498db ;
+  font-size: 16px;
+}
+
+.form-container {
+  position: absolute;
+  top: 10%;
+  display: none;
+  margin-top: 20px;
+  background-color: #ffff;
+  z-index: 999;
+  padding: 20px;
+  border-radius: 20px;
+}
+
+.form-container h2 {
+  text-align: center;
+}
+
+form input, form select, form button {
+  width: 100%;
+  padding: 10px;
+  margin: 5px 0;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+form select {
+  appearance: none;
+}
+
+form button {
+  background-color: #3498db;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.welcome-img{ 
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  border-radius: 20px;
+  opacity: .9;
+}
+.wstudy-img{
+  position: relative;
+  left: 10%;
+  width: 80%;
+  height: 60%;
+  background: transparent;
+  border-radius: 20px;
+  opacity: .9;
+animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+        transform: translateY(0);
+    }
+    40% {
+        transform: translateY(-30px);
+    }
+    60% {
+        transform: translateY(-15px);
+    }
+}
+.signup-img{ 
+  width: 100%;
+  height: 30%;
+  border-radius: 20px;
+}
+.login-img{ 
+  width: 100%;
+  height: 50%;
+  border-radius: 50px;
+}
+#signup-form.active, #login-form.active {
+  display: block;
+}
+.image-container1{
+  margin-top: 0px;
+  margin-bottom: 20px;
+  border: none;
+}
+.image-container2{
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+.login-min{
+  position: relative;
+  right: 30%;
+  width: 30%;
+  height: 50%;
+  border-radius: 50%;
+  border: 2px solid #0d0677;
+}
+.signup-min{
+  position: relative;
+  right: 30%;
+  width: 30%;
+  height: 60%;
+  border-radius: 50%;
+  border: 2px solid #0d0677;
+}
+   #login-toggle{
+     height: 20%;
+     width: 50%;
+     text-align: center;
+     font-weight: 700;
+   } 
+   #register-toggle{
+     height: 20%;
+     width: 50%;
+     text-align: center;
+     font-weight: 700;
+   } 
+   button{
+     text-align: center;
+   }
+  
+.userInput {
+    margin: 10px;
+    padding: 10px;
+    width: 200px;
+    border-radius: 15px;
+    border: none;
+    text-align: center;
+    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.1);
+}
+
+input:focus,
+input:hover {
+    outline: none !important;
+}
+
+
+</style>
+<style>
+  .banner {
+    text-align: center;
+    padding: 20px;
+    background-color: transparent;
+    box-shadow: 5px 5px 15px #cbced1, -5px -5px 15px #ffffff; /* Neumorphic shadow */
+    border-radius: 20px;
+  }
+  h2 {
+    margin-top: 10px;
+    font-size: 2.0rem;
+    color: #147FD1; /* Attractive color */
+    margin: 0;
+  }
+  span {
+    color: #E2892D; /* Text color for 'mastery' */
+    font-size: 1.5rem;
+  }
+  p {
+    font-size: 1.2rem;
+  }
+.custom-notification {
+  position: fixed;
+  top: 30%;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 10px 20px;
+  background-color: rgba(25, 25, 25, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: 10px;
+  color: #fff;
+  font-weight: 900;
+  font-size: 16px;
+  z-index: 999;
+}
+
+</style>
+<style>
+.eye-icon {
+  position: absolute;
+  right: 5px;
+  top: 45%;
+  transform: translateY(-50%);
+  cursor: pointer;
+}
+
+.input-container {
+  position: relative;
+}
+
+.hide {
+  display: none;
+}
+</style>
+<style>
+  .content {
+  padding: 20px;
+}
+
+.glassmorphic-footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(7px);
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  backdrop-filter: blur(10px);
+}
+
+.menu-toggle {
+  cursor: pointer;
+}
+
+.menu-items {
+  display: none;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.menu-items.show {
+  display: block;
+}
+
+.menu-items ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.about-us-btn {
+  position: relative;
+  right: 5%;
+  padding: 10px 20px;
+  border: none;
+  background-color: #4e8ef7;
+  color: white;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.about-us-btn:hover {
+  background-color: #3062c9;
+}
+
+.whatsapp-btn {
+  background-color: transparent;
+  border: none;
+  border-radius: 50%;
+  padding: 10px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.whatsapp-btn img {
+  width: 30px;
+  height: 30px;
+}
+
+.whatsapp-btn:hover {
+  background-color: transparent;
+}
+.call-btn {
+  background-color: transparent;
+  border: none;
+  border-radius: 50%;
+  padding: 10px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.call-btn img {
+  width: 30px;
+  height: 30px;
+}
+
+.call-btn:hover {
+  background-color: transparent;
+}
+
+</style>
+<style>
+    .Ab-modal {
+        display: none;
+        position: fixed;
+        z-index: 1;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(0, 0, 0, 0.5);
+        opacity: 1;
+        transition: opacity 0.3s ease;
+    }
+
+    .Ab-modal-content {
+        background-color: #fefefe;
+        margin: 10% auto;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 95%;
+        position: relative;
+        border-radius: 20px;
+        opacity: 1;
+        transform: translateY(-10px);
+        transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+
+    .close {
+        color: #aaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+    }
+
+    .close:hover,
+    .close:focus {
+        color: black;
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+    .neumorphic-card {
+        background-color: #f0f0f0;
+        border-radius: 10px;
+        padding: 20px;
+        box-shadow: 5px 5px 10px #bebebe, 
+                    -5px -5px 10px #ffffff;
+        margin-bottom: 20px;
+    }
+
+    .info-card {
+        text-align: center;
+    }
+
+    .info-card img {
+      position: relative;
+      top: -60px;
+        border-radius: 50%;
+        width: 150px;
+        height: 150px;
+        border: 3px solid #147FD1;
+    }
+
+    .goal-card {
+        padding: 10px;
+    }
+
+    .goal-card ul {
+        list-style-type: none;
+        padding: 0;
+    }
+
+    .checkmark {
+        font-size: 18px;
+        color: #00b894;
+        margin-right: 10px;
+    }
+    ul{
+      width: 100%;
+    }
+    li{
+      width: 100%;
+      text-align: left;
+      justify-content: left;
+    }
+    .developer{
+      color: #0d0788;
+    }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="toggle-buttons">
+    <button id="register-toggle" class="active"><img class="signup-min" src="Image/Reg-min.png">Register</button>
+    <button id="login-toggle"><img class="login-min" src="Image/Login-min.png">Login</button>
+  </div><br>
+      <h2>NCEE <span>mastery</span></h2>
+  <div class="image-container1"> 
+  <img class="welcome-img"src="Image/Welcome.png"></div>  
+  <div class="banner">
+    <p>Our Quiz Hub is specially curated with Multichoice and other variety of quizzes tailored to prepare students for NCEE and other Examinations online or offline.</p>
+ </div> 
+   <div class="image-container2"><img class="wstudy-img"src="./Image/Footer.png" style="content:"""></div>
+<div id="signup-form" class="form-container">
+      <img class="signup-img"src="Image/Signup.png">
+    <form id="signup">
+      <input type="text" placeholder="Username" required>
+      <input type="text" placeholder="School Name" required>
+      <input type="text" placeholder="Class Name" required>
+      <input type="tel" placeholder="Phone Number" required>
+      <input type="text" placeholder="Teacher's  Name (Optional)" >
+      <input type="text" placeholder="Other Teacher's Name (Optional)" >
+      <input type="text" placeholder="Career (Optional)">
+      <select name="exam-type" id="exam-type" required>
+        <option value="" disabled selected>Select Exam Type</option>
+        <option value="NCEE">NCEE</option>
+   <option value="JAMB">JAMB</option>
+        <option value="NEET">NEET</option>
+        <option value="JEE">JEE</option>
+        <option value="SAT">SAT</option>
+      </select>
+      <button type="submit">Submit</button>
+    </form>
+  </div>
+  <div id="login-form" class="form-container">
+    <img class="login-img"src="Image/Login.png">
+    <form id="login">
+     <div class="input-container">
+  <input id="username"type="text" placeholder="Username" required>
+</div>
+<div class="input-container">
+  <input type="password" id="passwordInput" placeholder="Password" required>
+
+<svg fill="#ececec" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" 
+	 width="20px" height="20px" viewBox="0 0 442.04 442.04"style="position: absolute; top: ; right: 5%;"
+	 xml:space="preserve"class="eye-icon" id="eyeIcon" onclick="togglePasswordVisibility()">
+<g>
+	<g>
+		<path d="M221.02,341.304c-49.708,0-103.206-19.44-154.71-56.22C27.808,257.59,4.044,230.351,3.051,229.203
+			c-4.068-4.697-4.068-11.669,0-16.367c0.993-1.146,24.756-28.387,63.259-55.881c51.505-36.777,105.003-56.219,154.71-56.219
+			c49.708,0,103.207,19.441,154.71,56.219c38.502,27.494,62.266,54.734,63.259,55.881c4.068,4.697,4.068,11.669,0,16.367
+			c-0.993,1.146-24.756,28.387-63.259,55.881C324.227,321.863,270.729,341.304,221.02,341.304z M29.638,221.021
+			c9.61,9.799,27.747,27.03,51.694,44.071c32.83,23.361,83.714,51.212,139.688,51.212s106.859-27.851,139.688-51.212
+			c23.944-17.038,42.082-34.271,51.694-44.071c-9.609-9.799-27.747-27.03-51.694-44.071
+			c-32.829-23.362-83.714-51.212-139.688-51.212s-106.858,27.85-139.688,51.212C57.388,193.988,39.25,211.219,29.638,221.021z"/>
+	</g>
+	<g>
+		<path d="M221.02,298.521c-42.734,0-77.5-34.767-77.5-77.5c0-42.733,34.766-77.5,77.5-77.5c18.794,0,36.924,6.814,51.048,19.188
+			c5.193,4.549,5.715,12.446,1.166,17.639c-4.549,5.193-12.447,5.714-17.639,1.166c-9.564-8.379-21.844-12.993-34.576-12.993
+			c-28.949,0-52.5,23.552-52.5,52.5s23.551,52.5,52.5,52.5c28.95,0,52.5-23.552,52.5-52.5c0-6.903,5.597-12.5,12.5-12.5
+			s12.5,5.597,12.5,12.5C298.521,263.754,263.754,298.521,221.02,298.521z"/>
+	</g>
+	<g>
+		<path d="M221.02,246.021c-13.785,0-25-11.215-25-25s11.215-25,25-25c13.786,0,25,11.215,25,25S234.806,246.021,221.02,246.021z"/>
+	</g>
+</g>
+</svg>
+</div>
+      <button type="button" id="login-button">Login</button>
+    </form>
+  </div>
+</div>
+<div id="aboutModal" class="Ab-modal">
+    <div class="Ab-modal-content">
+        <span class="close" onclick="closeAboutUs()">&times;</span>
+<div class="neumorphic-card info-card">
+    <img src="Image/About.png" alt="Circle Image">
+  <h2>CBT <span>mastery</span></h2>
+  <p>Welcome! this platform is developed specifically for common entrance and other computer-based test examination candidates. Our mission is to help students navigate through their upcoming exams with ease and success.</p>
+
+<p>We understand the challenges and pressures that come with exam preparation. That's why we have created a unique study tool that provides relevant content from exam study guides tailored into quizzes. These quizzes are designed to help narrow down the knowledge needed for precise comprehension and retention.</p>
+
+<p>By practicing through our quizzes, students can strengthen their understanding of key concepts and improve their test-taking skills. Our platform aims to make exam preparation more efficient and effective, ultimately leading to better exam results.</P>
+
+<p>Join us at NCEE Mastery Network and let us help you ace your next exam!</p>
+</div>
+
+<div class="neumorphic-card goal-card">
+    <h3 style="text-align: center; color: #E2892D;">Our Goals</h3>
+    <ul>
+        <li><span class="checkmark">✓</span> Help students improve their understanding of key concepts</li>
+        <li><span class="checkmark">✓</span> Enhance test-taking skills</li>
+        <li><span class="checkmark">✓</span> Increase retention of information</li>
+        <li><span class="checkmark">✓</span> Facilitate efficient exam preparation</li>
+       <li><span class="checkmark">✓</span> Improve exam performance</li>
+    </ul>
+</div>
+     <h4 style="position: relative; top: ;left: 65%;">Dev by<br><span style="font-size: 15px; color: #0d0789;"class="developer">Godson Azats</span></h4>
+    </div>
+</div>
+<footer class="glassmorphic-footer">
+    <div class="menu">
+    </div>
+<div class="menu-whatsapp">
+  <a href="https://chat.whatsapp.com/D7n1xY8gtJxCk2BjzyDEjU" target="_blank">
+    <button class="whatsapp-btn">
+      <img src="Svg/whatsapp1.svg " alt="whatsapp">
+    </button>
+  </a>
+</div>
+<div class="menu-call">
+  <a href="tel:08104080147">
+	    <button class="call-btn">
+      <img src="Svg/Phone1.svg" alt="whatsapp">
+    </button>
+  </a>
+</div>
+    <button class="about-us-btn" onclick="openAboutUs()">About Us</button>
+  </footer>
+<script>
+  const registerToggle = document.getElementById("register-toggle");
+  const loginToggle = document.getElementById("login-toggle");
+  const signupForm = document.getElementById("signup-form");
+  const loginForm = document.getElementById("login-form");
+
+  registerToggle.addEventListener("click", function() {
+    registerToggle.classList.add("active");
+    loginToggle.classList.remove("active");
+    signupForm.classList.add("active");
+    loginForm.classList.remove("active");
+  });
+
+  loginToggle.addEventListener("click", function() {
+    loginToggle.classList.add("active");
+    registerToggle.classList.remove("active");
+    loginForm.classList.add("active");
+    signupForm.classList.remove("active");
+  });
+
+  const signup = document.getElementById("signup");
+  const examType = document.getElementById("exam-type");
+
+  signup.addEventListener("submit", function(event) {
+    event.preventDefault();
+    const formData = new FormData(signup);
+    const username = formData.get("username");
+    const schoolName = formData.get("school-name");
+    const className = formData.get("class-name");
+    const phoneNumber = formData.get("phone-number");
+    const teacher1 = formData.get("teacher-1");
+    const teacher2 = formData.get("teacher-2");
+    const career = formData.get("career");
+    const selectedExam = examType.options[examType.selectedIndex].value;
+    const password = selectedExam === "NCEE" ? "ncee123" :selectedExam === "JAMB" ? "jamb123" :  selectedExam === "NEET" ? "neet123" : selectedExam === "JEE" ? "jee123" : selectedExam === "SAT" ? "sat123" : "";
+
+    const user = {
+      username,
+      schoolName,
+      className,
+      phoneNumber,
+      teacher1,
+      teacher2,
+      career,
+      selectedExam,
+      password
+    };
+
+    localStorage.setItem("user", JSON.stringify(user));
+    loginForm.classList.add("active");
+    signupForm.classList.remove("active");
+  });
+
+  const storedUser = JSON.parse(localStorage.getItem("user"));
+
+  if (storedUser) {
+    const loginUsername = loginForm.querySelector('input[type="text"]');
+    const loginPassword = loginForm.querySelector('input[type="password"]');
+    loginUsername.value = storedUser.username;
+    loginPassword.value = storedUser.password;
+    loginForm.classList.add("active");
+    signupForm.classList.remove("active");
+  }
+
+const loginButton = document.getElementById("login-button");
+
+loginButton.addEventListener("click", function() {
+  const storedUser = JSON.parse(localStorage.getItem("user"));
+  const enteredUsername = document.getElementById("username").value;
+  
+  if (storedUser && enteredUsername !== "") {
+    window.location.href = "mainpage.html";
+  } else {
+    const notification = document.createElement("div");
+    notification.classList.add("custom-notification");
+    notification.textContent = "Please fill in the username field.";
+    document.body.appendChild(notification);
+    setTimeout(() => {
+      notification.style.display = "none";
+    }, 3000);
+  }
+});
+
+</script>
+<script>
+document.addEventListener('click', function(event) {
+  if (!signupForm.contains(event.target) && !registerToggle.contains(event.target)) {
+    signupForm.classList.remove('active');
+  }
+  
+  if (!loginForm.contains(event.target) && !loginToggle.contains(event.target)) {
+    loginForm.classList.remove('active');
+  }
+});
+
+</script>
+<script>
+function togglePasswordVisibility() {
+  var passwordInput = document.getElementById('passwordInput');
+  var eyeIcon = document.getElementById('eyeIcon');
+  
+  if (passwordInput.type === "password") {
+    passwordInput.type = "text";
+    eyeIcon.src = "hide-eye.svg";
+  } else {
+    passwordInput.type = "password";
+    eyeIcon.src = "eye.svg";
+}
+}
+</script>
+<script>
+    function openAboutUs() {
+        document.getElementById("aboutModal").style.display = "block";
+    }
+
+    function closeAboutUs() {
+        document.getElementById("aboutModal").style.display = "none";
+    }
+</script>
+</body>
+</html>

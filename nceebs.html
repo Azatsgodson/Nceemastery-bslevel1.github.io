@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+        *{
+      -webkit-tap-highlight-color: rgba(0,0,0,0)!important;
+      -webkit-focus-ring-color: rgba(0,0,0,0)!important;
+           -webkit-tap-highlight-color: transparent !Important;
+             -webkit-touch-callout: none;
+      -webkit-user-select: none;
+         -webkit-user-modify: read-only;
+      outline: none! important;
+    }
+    
+    .card.locked {
+      filter: grayscale(50%);
+    }
+
+    .notification {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      padding: 30px;
+      border-radius: 10px;
+      background-color: #f1f1f1;
+      box-shadow: 5px 5px 15px #c4c4c4,
+        -5px -5px 15px #ffffff;
+      z-index: 1001;
+      display: none;
+      width: 100%;
+    }
+
+    .notification p {
+      text-align: center;
+    }
+    input {
+  padding: 10px;
+  border: 1px solid #d1d1d1;
+  background-color: #f0f0f0;
+  border-radius: 10px;
+  box-shadow: inset 6px 6px 12px #c4c4c4, inset -6px -6px 12px #ffffff;
+}
+input:hover {
+  padding: 10px;
+  border: 1px solid green;
+  background-color: #f0f0f0;
+  border-radius: 10px;
+  box-shadow: inset 6px 6px 12px #c4c4c4, inset -6px -6px 12px #ffffff;
+}
+.menu-btn{
+  padding: 10px 20px;
+  border: none;
+  background-color: #f0f0f0;
+  border-radius: 10px;
+  box-shadow: 6px 6px 12px #c4c4c4, -6px -6px 12px #ffffff;
+  transition: all 0.3s;
+}
+
+button:hover {
+  box-shadow: 6px 6px 12px rgba(0, 0, 0, 0.1), -6px -6px 12px rgba(255, 255, 255, 1);
+}
+
+.card P{
+  background-color: transparent;
+  color: #fff;
+  width: 0;
+  border-radius: 10px;
+}
+
+#navmodal {
+  position: relative;
+  top: 10%;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden; 
+}
+
+.modal-content {
+  display: flex;
+  flex-wrap: wrap;
+  display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      grid-template-rows: auto auto;
+      gap: 10px;
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      width: 100%;
+      height: 100%;
+}
+
+.card {
+  background-color: #f0f0f0;
+  padding: 20px;
+  margin: 10px;
+  margin-top: 30px;
+  border: 1px solid #cfcfcf;
+  border-radius: 20px;
+  box-shadow: 5px 5px 15px #bcbcbc,
+              -5px -5px 15px #ffffff;
+  overflow-y: hidden;
+  overflow-x: hidden;
+}
+
+.card-img {
+  width: 150%;
+  height: 140%;
+  object-fit: cover;
+  border-radius: 5px;
+  position: relative; 
+  right: 25%;
+  top: -30px; 
+}
+
+.locked {
+  opacity: 0.7;
+}
+.menu-btn{
+  border: 2px solid #ececec;
+  margin-left: 10px;
+  margin-right: 10px;
+  margin-bottom: 10px;
+  margin-top: 10px;
+  
+}
+
+  </style>
+  <style>
+  .menu {
+    position: fixed;
+    background-color: rgba(255, 255, 255, 0.5);
+    backdrop-filter: blur(5px);
+    border-radius: 10px;
+    padding: 10px;
+    cursor: pointer;
+    z-index: 999;
+    top: -10px;
+  }
+
+  .menu ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    display: none;
+  }
+
+  .menu ul li {
+    padding: 5px 5px;
+  }
+
+  .overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+  }
+
+  .password-modal {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 50px;
+    text-align: center;
+    z-index: 999;
+  }
+.toggle-img{
+  position: relative; 
+  top: 10%;
+  height: 5%;
+  width: 5%;
+}
+
+.password-img{
+  height: 100%;
+  width: 100%;
+  border-radius: 20px;
+  margin-bottom: 10px;
+}
+input{
+  border-radius: 20px;
+  text-align: center;
+  color: black;
+  border: 2px solid #0d0898;
+}
+input:hover{
+  border-radius: 20px;
+  text-align: center;
+  color: black;
+  border: 5px solid darkgreen;
+  background-color: #fefefe;
+}
+a{
+  text-decoration: none; 
+}
+
+</style>
+  <title>Modal Popup</title>
+</head>
+<body>
+  <div class="menu"><br>
+  <image src="Svg/Menu.png" class="toggle-img">
+    <ul>
+     <button class="menu-btn"> <a href="Maths.html"><li>Maths</li></a></button>
+<button class="menu-btn">      <a href="English.html"><li>Eng</li></a></button>
+<button class="menu-btn">      
+<a href="Quant.html"><li >Quant</li></a></button>
+<button class="menu-btn"><a href="Verbal.html"><li>Verb</li></a></button>
+<button class="menu-btn"><a href="Bscience.html"><li>B-s</li></a></button>
+<button class="menu-btn">            <a href="Sos.html"><li>Sos</li></a></button>
+           <button class="menu-btn"><a href="Vocational.html"><li>Voc</li></a></button>
+<button class="menu-btn">        <a href="Civic.html"><li>Civic</li></a></button>  
+<button class="menu-btn"><a href="Crs.html"><li>CRS</li></a></button>
+<button class="menu-btn"><a href="Computer.html"><li>Computer</li></a></button> </ul>
+</div>
+  <div id="navmodal" class="navmodal">
+    <div class="modal-content">
+      <div class="card" id="level1">
+        <img class="card-img"src="assets/B-science/Bimages/Solar.png" alt="">
+     <p style="font-size: 14px; text-align: center; width: 100%;position: relative; top: -60%;z-index: 99;font-weight:700;">solar system<span style="position: relative; left: 30% ;top: -25px;"> 🔓</span></p>
+      </div>
+      <div class="card locked" id="level2">
+        <img class="card-img"src="assets/B-science/Bimages/Hbody.png" alt="Lock">
+          <p style="font-size: 14px; text-align: center; width: 100%;position: relative; top: -60%;z-index: 99;font-weight:700;">Body system<span style="position: relative; left: 30% ;top: -25px;background-Color: #6a6a6a;border-radius: 50%;padding: 5px;">🔑</span></p>
+      </div>
+      <div class="card locked" id="level3">
+        <img class="card-img"src="assets/B-science/Bimages/Envi.png" alt="Lock">
+          <p style="font-size: 14px; text-align: center; width: 100%;position: relative; top: -60%;z-index: 99;font-weight:700;color: white;background-Color: #6a6a6abc;">Living Things<span style="position: relative; left: 40% ;top: -25px;background-Color: #6a6a6a;border-radius: 50%;padding: 5px;">🔑</span></p>
+      </div>
+      <div class="card locked" id="level4">
+        <img class="card-img"src="assets/B-science/Bimages/Health.png" alt="Lock">
+          <p style="font-size: 14px; text-align: center; width: 100%;position: relative; top: -65%;z-index: 99;font-weight:700;">Health<br>&<br>Nutrition<span style="position: relative; left: 50% ;top: -25px;background-Color: #6a6a6a;border-radius: 50%;padding: 5px;">🔑</span></p>
+      </div>
+      <div class="card locked" id="level5">
+        <img class="card-img"src="assets/B-science/Bimages/Elmagnet.png" alt="Lock">
+          <p style="font-size: 14px; text-align: center; width: 100%;position: relative; top: -60%;z-index: 99;font-weight:700;">Electricity<br>Magnetism<span style="position: relative; left: 60% ;top: -25px;background-Color: #6a6a6a;border-radius: 50%;padding: 5px;">🔑</span></p>
+      </div>
+      <div class="card locked" id="level6">
+        <img class="card-img"src="assets/B-science/Bimages/force.png" alt="Lock">
+          <p style="font-size: 14px; text-align: center; width: 100%;position: relative; top: -65%;z-index: 99;font-weight:700;">Force<br>&<br>Motion<span style="position: relative; left: 40% ;top: -25px;background-Color: #6a6a6a;border-radius: 50%;padding: 5px;">🔑</span></p>
+      </div>
+     <div class="card locked" id="level7">
+        <img class="card-img"src="assets/B-science/Bimages/Eco.png" alt="Lock">
+          <p style="font-size: 14px; text-align: center; width: 100%;position: relative; top: -65%;z-index: 99;font-weight:700;">Food Chain<br>&<br>Ecosystem<span style="position: relative; left: 60% ;top: -25px;background-Color: #6a6a6a;border-radius: 50%;padding: 5px;">🔑</span></p>
+      </div>
+     <div class="card locked" id="level8">
+        <img class="card-img"src="assets/B-science/Bimages/Envihealth.png" alt="Lock">
+          <p style="font-size: 14px; text-align: center; width: 100%;position: relative; top: -50%;z-index: 99;font-weight:700;">Environment<span style="position: relative; left: 60% ;top: -25px;background-Color: #6a6a6a;border-radius: 50%;padding: 5px;">🔑</span></p>
+      </div>
+     <div class="card locked" id="level9">
+        <img class="card-img"src="assets/B-science/Bimages/Matter.png" alt="Lock">
+          <p style="font-size: 14px; text-align: center; width: 100%;position: relative; top: -50%;z-index: 99;font-weight:700;">Matter<span style="position: relative; left: 30% ;top: -25px;background-Color: #6a6a6a;border-radius: 50%;padding: 5px;">🔑</span></p>
+      </div>  
+   <div class="card locked" id="level10">
+        <img class="card-img"src="assets/B-science/Bimages/Tech.png" alt="Lock">
+          <p style="font-size: 14px; text-align: center; width: 100%;position: relative; top: -65%;z-index: 99;font-weight:700;">Technology<br>&<br>Innovation<span style="position: relative; left: 60% ;top: -25px;background-Color: #6a6a6a;border-radius: 50%;padding: 5px;">🔑</span></p>
+      </div>
+     <div class="card locked" id="level11">
+        <img class="card-img"src="assets/B-science/Bimages/Weather.png" alt="Lock">
+                 <p style="font-size: 14px; text-align: center; width: 100%;position: relative; top: -65%;z-index: 99;font-weight:700;">Weather<br>&<br>Climate<span style="position: relative; left: 30% ;top: -25px;background-Color: #6a6a6a;border-radius: 50%;padding: 5px;">🔑</span></p>
+      </div>
+   <div class="card locked" id="level12">
+        <img class="card-img"src="assets/B-science/Bimages/Plantc2.png" alt="Lock">
+          <p style="font-size: 14px; text-align: center; width: 100%;position: relative; top: -50%;z-index: 99;font-weight:700;">Plants<span style="position: relative; left: 30% ;top: -25px;background-Color: #6a6a6a;border-radius: 50%;padding: 5px;">🔑</span></p>
+      </div>
+     <div class="card locked" id="level13">
+        <img class="card-img"src="assets/B-science/Bimages/Rocks.png" alt="Lock">
+          <p style="font-size: 14px; text-align: center; width: 100%;position: relative; top: -65%;z-index: 99;font-weight:700;">Rocks<br>&<br>Minerals<span style="position: relative; left: 35% ;top: -25px; background-Color: #6a6a6a;border-radius: 50%;padding: 5px; ">🔑</span></p>
+      </div>
+    <div class="card locked" id="level14">
+        <img class="card-img"src="assets/B-science/Bimages/Scien.png" alt="Lock">
+                  <p style="font-size: 14px; text-align: center; width: 100%;position: relative; top: -60%;z-index: 99;font-weight:700;">Earths Resources<span style="position: relative; left: 60% ;top: -25px;background-Color: #6a6a6a;border-radius: 50%;padding: 5px;">🔑</span></p>
+      </div>
+     <div class="card locked" id="level15">
+        <img class="card-img"src="assets/B-science/Bimages/Soundwave.png" alt="Lock">
+          <p style="font-size: 14px; text-align: center; width: 100%;position: relative; top: -65%;z-index: 99;font-weight:700;">Sound <br>& <br> Light<span style="position: relative; left: 40% ;top: -25px;background-Color: #6a6a6a;border-radius: 50%;padding: 5px;">🔑</span></p>
+      </div>  
+     <div class="card locked" id="level16">
+        <img class="card-img"src="assets/B-science/Bimages/Simple.png" alt="Lock">
+          <p style="font-size: 14px; text-align: center; width: 100%;position: relative; top: -60%;z-index: 99;font-weight:700;">Simple <br> Machines<span style="position: relative; left: 60% ;top: -25px;background-Color: #6a6a6a;border-radius: 50%;padding: 5px;">🔑</span></p>
+      </div>
+   <div class="card locked" id="level17">
+        <img class="card-img"src="assets/B-science/Bimages/Animals.png" alt="Lock">
+          <p style="font-size: 14px; text-align: center; width: 100%;position: relative; top: -50%;z-index: 99;font-weight:700;">Animals<span style="position: relative; left: 40% ;top: -25px;background-Color: #6a6a6a;border-radius: 50%;padding: 5px;">🔑</span></p>
+      </div> 
+   <div class="card locked" id="level18">
+        <img class="card-img"src="assets/B-science/Bimages/Climate.png" alt="Lock">
+          <p style="font-size: 14px; text-align: center; width: 100%;position: relative; top: -60%;z-index: 99;font-weight:700;">Scientific<br>Methods<span style="position: relative; left: 25% ;top: -25px;background-Color: #6a6a6a;border-radius: 50%;padding: 5px;">🔑</span></p>
+      </div>
+    <div class="card locked" id="level19">
+        <img class="card-img"src="assets/B-science/Bimages/Earthrotate.png" alt="Lock">
+               <p style="font-size: 14px; text-align: center; width: 100%;position: relative; top: -65%;z-index: 99;font-weight:700;">Safety<br>in<br>Science<span style="position: relative; left: 30% ;top: -25px;background-Color: #6a6a6a;border-radius: 50%;padding: 5px;">🔑</span></p>
+      </div>
+     <div class="card locked" id="level20">
+        <img class="card-img"src="assets/B-science/Bimages/Ok.png" alt="Lock">
+          <p style="font-size: 14px; text-align: center; width: 100%;position: relative; top: -50%;z-index: 99;font-weight:700;">Accessment<span style="position: relative; left: 60% ;top: -25px;background-Color: #6a6a6a;border-radius: 50%;padding: 5px;">🔑</span></p>
+      </div>
+    </div>
+  </div>
+
+  <div class="notification" id="notification">
+    <p></p>
+  </div>
+<script>
+  // Get the modal
+  var modal = document.getElementById('navmodal');
+  var notification = document.getElementById('notification');
+
+  // Display the modal when the page loads
+  window.onload = function() {
+    modal.classList.add('active');
+  }
+
+  // Add click event listener to level 1 card
+  document.getElementById('level1').addEventListener('click', function() {
+    window.location.href = 'solarsys.html';
+  });
+  // Function to redirect user based on input key
+  function redirectUser(levelId) {
+    var url;
+    switch (levelId) {
+      case "1":
+        url = 'Bslevel1.html';
+        break;
+      case "2":
+        url = 'Bslevel2.html';
+        break;
+      case "3":
+        url = 'Bslevel3.html';
+        break;
+        case "4":
+        url = 'Bslevel4.html';
+        break;
+        case "5":
+        url = 'Bslevel5.html';
+        break;
+        case "6":
+        url = 'Bslevel6.html';
+        break;
+        case "7":
+        url = 'Bslevel7.html';
+        break;
+        case "8":
+        url = 'Bslevel8.html';
+        break;
+        case "9":
+        url = 'Bslevel9.html';
+        break;
+        case "10":
+        url = 'Bslevel10.html';
+        break;
+        case "11":
+        url = 'Bslevel11.html';
+        break;
+        case "12":
+        url = 'Bslevel12.html';
+        break;
+        case "13":
+        url = 'Bslevel13.html';
+        break;
+        case "14":
+        url = 'Bslevel14.html';
+        break;
+        case "15":
+        url = 'Bslevel15.html';
+        break;
+        case "16":
+        url = 'Bslevel16.html';
+        break;
+        case "17":
+        url = 'Bslevel17.html';
+        break;
+        case "18":
+        url = 'Bslevel18.html';
+        break;
+        case "19":
+        url = 'Bslevel19.html';
+        break;
+      // Add more cases for other levels
+      default:
+        url = 'default.html';
+    }
+    window.location.href = url;
+  }
+  // Add click event listener to level 2 card
+  document.getElementById('level2').addEventListener('click', function() {
+    showModalWithInput("BSHBS", "1");
+  });
+
+  // Add click event listener to level 3 card
+  document.getElementById('level3').addEventListener('click', function() {
+    showModalWithInput("BSLT", "2");
+  });
+
+  // Add click event listener to level 4 card
+  document.getElementById('level4').addEventListener('click', function() {
+    showModalWithInput("BSH", "3");
+  });
+
+  // Add click event listener to level 5 card
+  document.getElementById('level5').addEventListener('click', function() {
+    showModalWithInput("BSEM", "4");
+  });
+
+  // Add click event listener to level 6 card
+  document.getElementById('level6').addEventListener('click', function() {
+    showModalWithInput("BSFM", "5");
+  });
+    document.getElementById('level7').addEventListener('click', function() {
+    showModalWithInput("BSFE", "6");
+  });
+  document.getElementById('level8').addEventListener('click', function() {
+    showModalWithInput("BSE", "7");
+  });
+  document.getElementById('level9').addEventListener('click', function() {
+    showModalWithInput("BSM", "8");
+  });
+    document.getElementById('level10').addEventListener('click', function() {
+    showModalWithInput("BSTI", "9");
+  });
+   document.getElementById('level11').addEventListener('click', function() {
+    showModalWithInput("BSWC", "10");
+  }); 
+  document.getElementById('level12').addEventListener('click', function() {
+    showModalWithInput("BSP", "11");
+  });  
+    document.getElementById('level13').addEventListener('click', function() {
+    showModalWithInput("BSRM", "12");
+  });
+   document.getElementById('level14').addEventListener('click', function() {
+    showModalWithInput("BSER", "13");
+  }); 
+   document.getElementById('level15').addEventListener('click', function() {
+    showModalWithInput("BSSL", "14");
+  }); 
+   document.getElementById('level16').addEventListener('click', function() {
+    showModalWithInput("BSA", "15");
+  }); 
+   document.getElementById('level17').addEventListener('click', function() {
+    showModalWithInput("BSSM", "16");
+  });
+  document.getElementById('level18').addEventListener('click', function() {
+    showModalWithInput("BSSS", "17");
+  }); 
+  document.getElementById('level19').addEventListener('click', function() {
+    showModalWithInput("BSAS", "18");
+  });  
+   
+</script>
+<script>
+
+function showModalWithInput(keyword, level) {
+  var inputField = document.createElement("input");
+  inputField.setAttribute("type", "password");
+  inputField.setAttribute("placeholder", "Enter password");
+  inputField.style.cssText = "padding: 10px; border: none; background-color: #f0f0f0; border-radius: 10px; box-shadow: 6px 6px 12px #c4c4c4, -6px -6px 12px #ffffff; Position:relative; right: 5%; top: 10px;";
+  inputField.addEventListener("mouseover", function() {
+    inputField.style.padding = "10px";
+    inputField.style.border = "2px solid #0d0";
+    inputField.style.backgroundColor = "#f9f7fc";
+    inputField.style.borderRadius = "18px";
+    inputField.style.boxShadow = "inset 8px 8px 16px #c4c4c4, inset -8px -8px 16px #ffffff";
+    inputField.style.cursor = "pointer";
+  });
+
+  inputField.addEventListener("mouseout", function() {
+    inputField.style.padding = "10px";
+    inputField.style.border = "px solid #d1d1d1";
+    inputField.style.backgroundColor = "#f0f0f0";
+    inputField.style.borderRadius = "10px";
+    inputField.style.boxShadow = " 6px 6px 12px #c4c4c4, -6px -6px 12px #ffffff";
+  });
+
+  var img = document.createElement("img");
+  img.setAttribute("src", "assets/B-science/Bimages/Password.png");
+  img.setAttribute("alt", "Image");
+  img.style.width = "100%";
+  img.style.height = "50%";
+  img.style.borderRadius = "20px";
+
+  var submitButton = document.createElement("button");
+  submitButton.innerText = "Submit";
+  submitButton.style.cssText = "padding: 10px 20px; border: none; background-color: #f0f0f0; border-radius: 10px; box-shadow: 6px 6px 12px #c4c4c4, -6px -6px 12px #ffffff; transition: all 0.3s; Position:relative; left: 30%; top: 20px;";
+
+  submitButton.addEventListener("mouseover", function() {
+    submitButton.style.boxShadow = "6px 6px 12px rgba(0, 0, 0, 0.1), -6px -6px 12px rgba(255, 255, 255, 1)";
+  });
+
+  submitButton.addEventListener("mouseout", function() {
+    submitButton.style.boxShadow = " 6px 6px 12px #c4c4c4, inset -6px -6px 12px #ffffff";
+  });
+
+var closeButton = document.createElement("button");
+closeButton.innerText = "X";
+closeButton.style.cssText = "padding: 10px 20px; border: none; background-color: transparent; border-radius: 50px;  color: #888; font-weight: bold; position: absolute; top: 0px; right: 5px; cursor: pointer;";
+
+closeButton.addEventListener("click", function() {
+  tooltip.style.display = "none";
+});
+
+  var tooltip = document.createElement("div");
+  tooltip.appendChild(closeButton);
+  tooltip.appendChild(img);
+  tooltip.appendChild(inputField);
+  tooltip.appendChild(submitButton);
+
+  tooltip.style.position = "fixed";
+  tooltip.style.top = "50%";
+  tooltip.style.left = "50%";
+  tooltip.style.transform = "translate(-50%, -50%)";
+  tooltip.style.padding = "30px";
+  tooltip.style.borderRadius = "15px";
+  tooltip.style.backgroundColor = "#f0f0f0";
+  tooltip.style.boxShadow = " inset 6px 6px 12px #c4c4c4, inset -6px -6px 12px #ffffff";
+  tooltip.style.border = "2px solid #d1d1d1";
+  tooltip.style.zIndex = 9999;
+  tooltip.style.width = "50%";
+  tooltip.style.height = "auto";
+  document.body.appendChild(tooltip);
+
+  submitButton.addEventListener("click", function() {
+    var userInput = inputField.value.trim().toLowerCase();
+
+    if (userInput === keyword.toLowerCase()) {
+      showNotification("Access Granted! √", true);
+      setTimeout(function() {
+        tooltip.style.display = "none";
+        redirectUser(level);
+      }, 2000);
+    } else {
+      showNotification("Access Denied! X", false);
+    }
+  });
+
+  function showNotification(message, isSuccess) {
+    var notificationPopup = document.createElement("div");
+    notificationPopup.textContent = message;
+    notificationPopup.style.position = "fixed";
+    notificationPopup.style.top = "50%";
+    notificationPopup.style.left = "50%";
+    notificationPopup.style.transform = "translateX(-50%)";
+    notificationPopup.style.textAlign = "center";
+    notificationPopup.style.width = "50%";
+    notificationPopup.style.padding = "10px 20px";
+    notificationPopup.style.borderRadius = "5px";
+    notificationPopup.style.color = isSuccess ? "white" : "darkred";
+    notificationPopup.style.backgroundColor = isSuccess ? "green" : "red";
+    notificationPopup.style.border = "none";
+    notificationPopup.style.zIndex = 9999;
+    document.body.appendChild(notificationPopup);
+
+    // Remove the notification after 3 seconds
+    setTimeout(function() {
+      notificationPopup.style.display = "none";
+    }, 3000);
+  }
+}
+</script>
+  <script>
+    const menu = document.querySelector('.menu');
+    const menuList = document.querySelector('.menu ul');
+
+    menu.addEventListener('click', function(e) {
+      menuList.style.display = menuList.style.display === 'block' ? 'none' : 'block';
+    });
+
+    // Add event listener to hide menu list when clicked outside the menu
+    document.addEventListener('click', function(event) {
+      const isClickInsideMenu = menu.contains(event.target);
+      if (!isClickInsideMenu && menuList.style.display === 'block') {
+        menuList.style.display = 'none';
+      }
+    });
+  </script>
+  
+</body>
+</html>
